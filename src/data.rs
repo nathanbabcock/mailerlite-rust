@@ -1,6 +1,6 @@
 #[derive(Debug, Clone)]
 pub struct Data {
-    pub data: Vec<(&'static str, &'static str)>,
+    pub data: Vec<(String, String)>,
 }
 
 impl Data {
@@ -8,13 +8,13 @@ impl Data {
         Self { data: Vec::new() }
     }
 
-    pub fn add(mut self, key: &'static str, value: &'static str) -> Self {
-        self.data.push((key, value));
+    pub fn add(mut self, key: &str, value: &str) -> Self {
+        self.data.push((key.to_string(), value.to_string()));
 
         self
     }
 
-    pub fn get(&self, key: &'static str) -> Option<&'static str> {
+    pub fn get(&self, key: &str) -> Option<&str> {
         for (k, v) in &self.data {
             if k == &key {
                 return Some(v);
@@ -40,7 +40,7 @@ mod tests {
     fn data_add() {
         let data: Data = Data::new().add("key", "value");
 
-        assert_eq!(data.data, vec![("key", "value")]);
+        assert_eq!(data.data, vec![("key".to_string(), "value".to_string())]);
     }
 
     #[test]
